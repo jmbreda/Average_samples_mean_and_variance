@@ -10,9 +10,9 @@ def log_likelihood(t, mean, variances):
 
 def find_tau(mean, variances):
     """ finds tau """
-    (tau, fval, ierr, numfunc) = so.fminbound(log_likelihood, 0, 10000,args=(E, variances),full_output=1, xtol=1.e-06)
+    (tau, fval, ierr, numfunc) = so.fminbound(log_likelihood, 0, 10000,args=(mean, variances),full_output=1, xtol=1.e-06)
     if ierr:
-        sys.exit("log_E has not converged after %d iterations.\n"% numfunc)
+        sys.exit("Not converged after %d iterations.\n"% numfunc)
     alpha = 1. / (variances + np.power(tau, 2))
     m0 = np.sum(alpha)
     m1 = np.sum(alpha * mean)
